@@ -39,7 +39,7 @@ class Ftx(Binance):
         '''Parse price from API response'''
         response = requests.get(self.api_request)
         try:
-            result = response.json()['result'][1]['price']
+            result = response.json()['result'][0]['price']
         except IndexError:
             return -1
         return int(result)
