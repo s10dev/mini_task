@@ -58,7 +58,7 @@ ftx = Ftx(data['ftx_ticker'])
 # main loop
 while True:
     try:
-        result = abs(binance - ftx)
+        result = binance - ftx
         if result >= int(data['size']):
             print(f'Do smth to make profit, cuz difference is bigger than {data["size"]}')
         print(result)
