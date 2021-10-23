@@ -23,9 +23,12 @@ class Binance:
 
     def __sub__(self, other):
         self_price, other_price = self.get_price(), other.get_price()
-        if self_price == -1 or other_price == -1:
+        if self_price == -1:
             raise PriceException(self)
-        return abs(int(self_price) - int(other_price))
+        elif other_price == -1:
+            raise PriceException(other)
+        else:
+            return abs(self_price - other_price)
 
 
 class Ftx(Binance):
@@ -36,7 +39,7 @@ class Ftx(Binance):
         '''Parse price from API response'''
         response = requests.get(self.api_request)
         try:
-            result = response.json()['result'][0]['price']
+            result = response.json()['result'][1]['price']
         except IndexError:
             return -1
         return int(result)
