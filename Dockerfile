@@ -17,5 +17,6 @@ RUN poetry config virtualenvs.create false \
     && poetry install $(test "$YOUR_ENV" == production && echo "--no-dev") --no-interaction --no-ansi
 
 COPY . /app
+COPY ./mini_task/setup.txt ./
 
 ENTRYPOINT ["python", "./mini_task/main.py"]

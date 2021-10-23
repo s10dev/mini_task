@@ -13,7 +13,7 @@ class Binance:
         self.api_request = f'https://api.binance.com/api/v3/trades?symbol={ticker}&limit=1'
 
     def get_price(self):
-        '''Parse price from API request'''
+        '''Parse price from API response'''
         response = requests.get(self.api_request)
         try:
             result = response.json()[0]['price']
@@ -33,7 +33,7 @@ class Ftx(Binance):
         self.api_request = f'https://ftx.com/api/markets/{ticker}/trades?limit=1'
 
     def get_price(self):
-        '''Parse price from API request'''
+        '''Parse price from API response'''
         response = requests.get(self.api_request)
         try:
             result = response.json()['result'][0]['price']
@@ -60,7 +60,7 @@ while True:
             print(f'Do smth to make profit, cuz difference is bigger than {data["size"]}')
         print(result)
     except PriceException as e:
-        print(f'Unable to get price from {e.obj}')
+        print(f'Unable to get price from {e.obj.__class__.__name__}')
     except KeyError as e:
         print(f'Bad API response. The ticker name is probably incorrect')
     time.sleep(0.25)
